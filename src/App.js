@@ -1,24 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import Header from './components/Header/Header';
+import AddNickname from './components/AddNickname/AddNickname';
+
 import './App.css';
 
 function App() {
+  const [isOpen, setOpen] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [item, setItem] = useState([
+    {
+      id: null,
+      nickname: ''
+    }
+  ]);
+
+  const toggleOpen = () => {
+    setOpen(!isOpen);
+  }
+
+  const incrementCounter = () => {
+    setCounter(prevState => prevState + 1);
+  }
+
+  const addNickname = (nick) => {
+    // console.log("NEW PET NAME: " + nick);
+    
+    setItem([
+      ...item,
+      {
+        id: item.length,
+        nickname: nick
+      }
+    ]);
+  }
+
+  const nameList = item.map((item) => <h1 key={item.id}>{item.nickname}</h1>);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header 
+        isOpen={isOpen} 
+        counter={counter} 
+        item={item}
+        toggleOpen={toggleOpen}
+        handleIncrement={incrementCounter}
+      />
+      <AddNickname 
+        addNickname={addNickname}
+      />
+      {nameList}
     </div>
   );
 }
