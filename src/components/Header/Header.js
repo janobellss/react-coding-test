@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import headerData from '../../datas/headerData';
 
 const Header = (props) => {
@@ -11,7 +13,8 @@ const Header = (props) => {
         // console.log(item.id + " " + item.nav + " " + item.link);
         
         return(
-            <li key={item.id}><a href={item.link}>{item.nav}</a></li>
+            // <li key={item.id}><a href={item.link}>{item.nav}</a></li>
+            <Link key={item.id} to={item.link}>{item.nav}</Link>
         )
     });
 
